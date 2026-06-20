@@ -21,9 +21,16 @@ final class HuggingFaceHubFluentApiTest {
         RecordingClient client = new RecordingClient();
         HuggingFaceHub hub = HuggingFaceHub.standard().client(client).build();
 
-        hub.models().search("qwen coder").task("text-generation").library("transformers").sortByDownloads().limit(10).execute();
+        hub.models().search("qwen coder")
+                .task("text-generation")
+                .library("transformers")
+                .filter("safetensors")
+                .gated(false)
+                .sortByTrendingScore()
+                .limit(10)
+                .execute();
 
-        assertEquals("search=qwen%20coder&pipeline_tag=text-generation&library=transformers&sort=downloads&limit=10", client.parameters.toQueryString());
+        assertEquals("search=qwen%20coder&pipeline_tag=text-generation&library=transformers&filter=safetensors&gated=false&sort=trendingScore&limit=10", client.parameters.toQueryString());
     }
 
     @Test

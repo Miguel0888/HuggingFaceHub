@@ -20,6 +20,10 @@ public final class ModelDetails {
         return summary;
     }
 
+    public String getRepoId() {
+        return summary == null ? null : summary.getRepoId();
+    }
+
     public String getSha() {
         return sha;
     }

@@ -14,7 +14,9 @@ Anonymous public model search:
             .search("qwen coder")
             .task("text-generation")
             .library("transformers")
-            .sortByDownloads()
+            .filter("safetensors")
+            .gated(false)
+            .sortByTrendingScore()
             .limit(20)
             .execute();
 
@@ -26,6 +28,12 @@ Environment token:
 
     HuggingFaceHub hub = HuggingFaceHub.standard().environmentToken().build();
 
+Custom token provider:
+
+    HuggingFaceHub hub = HuggingFaceHub.standard()
+            .tokenProvider(myTokenProvider)
+            .build();
+
 Model details:
 
     ModelDetails details = hub.models()
@@ -34,6 +42,8 @@ Model details:
             .includeFiles()
             .includeConfig()
             .execute();
+
+    String repoId = details.getRepoId();
 
 Files only:
 
@@ -56,11 +66,14 @@ Streaming file download:
 - Anonymous API access
 - Static access token support
 - HF_TOKEN environment token support
+- Custom token provider support
 - Bearer token HTTP header
-- Fluent model search
+- Fluent model search with common filters
+- Open query parameter escape hatch
 - Model details and file listing
 - Gson JSON mapping
 - Streaming single-file downloads
+- Hub-host-only Authorization across redirects
 - whoAmI() account lookup
 - Java 8 target
 - Maven publishing metadata

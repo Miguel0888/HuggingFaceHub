@@ -35,6 +35,16 @@ public final class ModelSearchRequest {
         return this;
     }
 
+    public ModelSearchRequest filter(String filter) {
+        parameters.add("filter", filter);
+        return this;
+    }
+
+    public ModelSearchRequest gated(boolean gated) {
+        parameters.set("gated", String.valueOf(gated));
+        return this;
+    }
+
     public ModelSearchRequest sortByDownloads() {
         parameters.set("sort", "downloads");
         return this;
@@ -47,6 +57,16 @@ public final class ModelSearchRequest {
 
     public ModelSearchRequest sortByLastModified() {
         parameters.set("sort", "lastModified");
+        return this;
+    }
+
+    public ModelSearchRequest sortByCreatedAt() {
+        parameters.set("sort", "createdAt");
+        return this;
+    }
+
+    public ModelSearchRequest sortByTrendingScore() {
+        parameters.set("sort", "trendingScore");
         return this;
     }
 
